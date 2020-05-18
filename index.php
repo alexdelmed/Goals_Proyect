@@ -37,7 +37,7 @@
         if($row['goal_complete'] == 0){
           if($row['goal_category'] == 0){
             $cat = "Personal";
-          } elseiff ($row['goal_category' == 1]) {
+          } elseif ($row['goal_category' == 1]) {
             $cat = "Professional";
           } else {
             $cat = "Other";
@@ -55,7 +55,7 @@
         if($row['goal_complete'] != 0){
           if($row['goal_category'] == 0){
             $cat = "Personal";
-          } elseiff ($row['goal_category' == 1]) {
+          } elseif ($row['goal_category' == 1]) {
             $cat = "Professional";
           } else {
             $cat = "Other";

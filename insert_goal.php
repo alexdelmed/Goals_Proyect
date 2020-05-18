@@ -10,11 +10,13 @@ if ($complete == '' || $complete == null){
   $complete = 0;
 }
 
-$sql = "INSERT INTO goals (goal_category, goal_text, goal_date, goal_complete) VALID INSERT"
-$sql .= "('" . $category . "',";
-$sql .= "'" . $text . "',";
-$sql .= "'" . $date . "'";
-$sql .= "'" . $complete . "')";
+$sql = "INSERT INTO goals (goal_category, goal_text, goal_date, goal_complete) VALUES
+	(
+	'$category',
+	'$text',
+	'$date',
+	$complete
+	)";
 
 //print $sql;
 IF(mysqli_query($link, $sql)){
@@ -23,5 +25,5 @@ IF(mysqli_query($link, $sql)){
   print("Failed");
 }
 
-echo "<script>location.href='index.php'</script>";
+header("location:index.php");
 ?>
