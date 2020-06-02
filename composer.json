@@ -1,0 +1,17 @@
+{
+    "name": "vendor/goals",
+    "description": "PHP web",
+    "type": "project",
+    "license": "GNU3",
+    "authors": [
+        {
+            "name": "alexdelmed",
+            "email": "alexdm14@live.com.mx"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "kreait/firebase-php": "^4.17"
+        "php": ">=7.2.0" 
+    }
+}

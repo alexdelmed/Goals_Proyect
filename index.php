@@ -1,72 +1,209 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ronoto:300"
-    <link rel="stylesheet" href="http://cdn.rawgit.com/necolas/normalize.css/master
-    <link rel="stylesheet" href="http://cdn.rawgit.com/milligram/milligram/master/
-    <link rel="stylesheet" href="goals.css" />
-    <title>Goal Tracker</title>
-  </head>
-  <body>
-    <div id="container">
-      <h1>New Goal</h1>
-      <form action="insert_goal.php" method="post">
-        <label for="cat">Category</label>
-        <select name="cat" id="cat">
-          <option value="0">Personal</option>
-          <option value="1">Professional</option>
-          <option value="2">Other</option>
-        </select>
-        <label for="text">Goal</label>
-        <textarea name="text" id="text"></textarea>
-        <label for="goaldate">Date</label>
-        <input type="date" id="goaldate" name="goaldate" />
-        <label for="complete">Goal Completed</label>
-        <input type="checkbox" id="Complete" name="complete" value="1" /><br/>
-        <button type="submit">Submit Goal</button>
-      </form>
-      <?php
-      require_once 'connect.php';
-      $sql = "SELECT * FROM goals";
-      $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-      print("<h2>Incomplete Goals</h2>");
+<?php include('header.php');
+session_start();
+$admin = "admin@algo.com";
 
-      //Incomplete Goals
-      while($row = mysqli_fetch_array($result)){
-        if($row['goal_complete'] == 0){
-          if($row['goal_category'] == 0){
-            $cat = "Personal";
-          } elseif ($row['goal_category' == 1]) {
-            $cat = "Professional";
-          } else {
-            $cat = "Other";
-          }
-          echo "<div class='goal'>";
-          echo "<a href='complete.php?id=" . $row['goal_id'] . "'><button class='btnComplete'>Complete</button></a><strong>";
-          echo $cat . "</strong><p>" . $row['goal_text'] . "</p>Goal Date: " . $row['goal_date'];
-          echo "</div>";
+if ($sol = 1) {
+  if(isset($_POST['passname']))
+  {
+  	$emailf = $_POST['emaill'];
+  	$pwdf = $_POST['pwdl'];
+    $_SESSION['superhero'] = $emailf;
+    $sol++;
+  }
+}
+$_SESSION['sol'] = $sol;
+include('includes/dbconfig.php');
+$ref = "goals/";
+$fetchdata = $database->getReference($ref)->getValue();
+$i = 0;
+ ?>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <?php
+        if (isset($_SESSION['status']) && $_SESSION['status'] != "")
+        {
+          ?>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Hey!</strong> <?php echo $_SESSION['status']; ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <?php
+          unset($_SESSION['status']);
         }
-      }
-      //Cpmplete Goals
-      print("<h2>Complete Goals</h2>");
-      $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-      while($row = mysqli_fetch_array($result)){
-        if($row['goal_complete'] != 0){
-          if($row['goal_category'] == 0){
-            $cat = "Personal";
-          } elseif ($row['goal_category' == 1]) {
-            $cat = "Professional";
-          } else {
-            $cat = "Other";
-          }
-          echo "<div class='goal'>";
-          echo "<a href='delete.php?id=" . $row['goal_id'] . "'><button class='btnComplete'>Complete</button></a><strong>";
-          echo $cat . "</strong><p>" . $row['goal_text'] . "</p>Goal Date: " . $row['goal_date'];
-          echo "</div>";
-        }
-      }
       ?>
+    </div>
+    <div class="col-md-12 mt-5">
+      <div class="card">
+        <div class="card-body">
+          <?php
+            include('includes/dbconfig.php');
+            $ref = "goals/";
+            $totalrowno = $database->getReference($ref)->getSnapshot()->numChildren();
+            if ($_SESSION['superhero'] == $admin) {
+
+          ?>
+          <?php echo $_SESSION['superhero'];?>
+          <h4>Your Goals
+            <a href="#" class="btn btn-info ml-3 text-white float-right">Total No: <?php echo $totalrowno; ?></a>
+            <form action="insert.php" method="POST">
+              <input type="hidden" name="email_user" value="<?php echo $_SESSION['superhero'] ?>">
+              <input type="hidden" name="pwd_user" value="<?php echo $pwdf; ?>">
+              <button type="submit" name="passnamei" class="btn btn-primary float-right">Add</button>
+            </form>
+          </h4>
+          <hr>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Goal Name</th>
+                  <th>Area</th>
+                  <th>To do</th>
+                  <th>Date</th>
+                  <th>Done</th>
+                  <th>Email</th>
+                  <th>Username</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+
+                  if ($fetchdata > 0) {
+
+                  foreach ($fetchdata as $key => $row)
+                  {
+                    $i++;
+
+                ?>
+                <tr>
+                  <td><?php echo $key; ?></td>
+                  <td><?php echo $row['goalname']; ?></td>
+                  <td><?php echo $row['area']; ?></td>
+                  <td><?php echo $row['todo']; ?></td>
+                  <td><?php echo $row['date']; ?></td>
+                  <td><?php echo $row['done']; ?></td>
+                  <td><?php echo $row['email']; ?></td>
+                  <td><?php echo $row['username']; ?></td>
+
+                  <td>
+                    <a href="edite.php?token=<?php echo $key ?>" class="btn btn-primary">Edit</a>
+                  </td>
+                  <td>
+                    <form action="code.php" method="post">
+                        <input type="hidden" name="email_user" value="<?php echo $emailf; ?>">
+                        <input type="hidden" name="pwd_user" value="<?php echo $pwdf; ?>">
+                        <input type="hidden" name="ref_toke_delete" value="<?php echo $key; ?>">
+                        <button type="submit" name="delete_data" class="btn btn-danger">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                <?php
+                    }
+                }
+
+                else{
+                  ?>
+                    <tr>
+                      <td colspan="6">You Dont Have Any Work</td>
+                    </tr>
+                  <?php
+                }
+                ?>
+              </tbody>
+            </table>
+            </div>
+            <?php
+            }
+          else{
+
+        ?>
+        <?php echo $_SESSION['superhero'];?>
+        <h4>Your Goals
+          <form action="insert.php" method="POST">
+            <input type="hidden" name="email_user" value="<?php echo $emailf; ?>">
+            <input type="hidden" name="pwd_user" value="<?php echo $pwdf; ?>">
+            <button type="submit" name="passnamei" class="btn btn-primary float-right">Add</button>
+          </form>
+        </h4>
+        <hr>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Goal Name</th>
+                <th>Area</th>
+                <th>To do</th>
+                <th>Date</th>
+                <th>Done</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+
+                if ($fetchdata > 0) {
+
+                foreach ($fetchdata as $key => $row)
+                {
+
+                  if ($row['email'] == $_SESSION['superhero']) {
+                      $_SESSION['myname'] = $row['username'];
+                      $i++;
+              ?>
+              <tr>
+                <td><?php echo $i; ?></td>
+                <td><?php echo $row['goalname']; ?></td>
+                <td><?php echo $row['area']; ?></td>
+                <td><?php echo $row['todo']; ?></td>
+                <td><?php echo $row['date']; ?></td>
+                <td><?php echo $row['done']; ?></td>
+                <td>
+                  <a href="edite.php?token=<?php echo $key ?>" class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                  <form action="code.php" method="post">
+                      <input type="hidden" name="email_user" value="<?php echo $emailf; ?>">
+                      <input type="hidden" name="pwd_user" value="<?php echo $pwdf; ?>">
+                      <input type="hidden" name="ref_toke_delete" value="<?php echo $key; ?>">
+                      <button type="submit" name="delete_data" class="btn btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              <?php
+                  }
+                }
+              }
+              else{
+                ?>
+                  <tr>
+                    <td colspan="6">You Dont Have Any Work</td>
+                  </tr>
+                <?php
+              }
+              ?>
+            </tbody>
+          </table>
+          </div>
+        <?php }?>
+          </div>
+        </div>
       </div>
-    </body>
-    html>
+    </div>
+
+
+  </div>
+</div>
+
+
+
+<?php include('footer.php'); ?>
