@@ -1,5 +1,6 @@
-<?php
+
 <?php include('header.php');
+include('includes/dbconfig.php');
 session_start();
   require __DIR__ . '/vendor/autoload.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -20,6 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 }
 ?>
+<div>
+	<img src="https://media1.tenor.com/images/784923250a0c8f9951c0694f98eeb5b0/tenor.gif?itemid=16137010" alt="this slowpoke moves"  width=250/>
+	<img src="https://media1.tenor.com/images/784923250a0c8f9951c0694f98eeb5b0/tenor.gif?itemid=16137010" alt="this slowpoke moves"  width=250/>
+	<img src="https://media1.tenor.com/images/784923250a0c8f9951c0694f98eeb5b0/tenor.gif?itemid=16137010" alt="this slowpoke moves"  width=250/>
+	<img src="https://media1.tenor.com/images/784923250a0c8f9951c0694f98eeb5b0/tenor.gif?itemid=16137010" alt="this slowpoke moves"  width=250/>
+	
+</div>
 <body>
   <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
   <script>

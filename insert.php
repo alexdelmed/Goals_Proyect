@@ -1,4 +1,4 @@
-
+<div style="background-image: url('img/nini.jpg');">
 <?php
 session_start();
 include('header.php');
@@ -87,7 +87,7 @@ else {
 
 				</div>
 				<div class="form-group">
-					<input type="hidden" name="pwd" value="Secret">
+					<input type="hidden" name="pwd" value="<?php echo $_SESSION['superpass'] ?>">
 
 				</div>
 
@@ -103,4 +103,26 @@ else {
 <?php
 }
  ?>
+ <div>
+ <a type="hidden">.</a>
+ </div>
+ <div>
+ <a type="hidden">.</a>
+ </div>
+ <div>
+ <a type="hidden">.</a>
+ </div>
+ <div>
+ <a type="hidden">.</a>
+ </div>
+ <div>
+ <a type="hidden">.</a>
+ </div>
+ <div>
+ <a type="hidden">.</a>
+ </div>
+ <div>
+ <a type="hidden">.</a>
+ </div>
+ 
 <?php include('footer.php'); ?>

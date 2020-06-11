@@ -1,4 +1,4 @@
-
+<div style="background-image: url('img/res.jpg');">
 <?php
 session_start();
 include('header.php');
@@ -32,7 +32,33 @@ $_SESSION['superhero'] = null;
 	</div>
 
 </div>
-
-
-
-<?php include('footer.php'); ?>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>

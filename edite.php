@@ -1,3 +1,4 @@
+<div style="background-image: url('img/bru.jpg');">
 <?php
 session_start();
 include('header.php');

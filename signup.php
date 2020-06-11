@@ -1,4 +1,4 @@
-
+<div style="background-image: url('img/wolo.jpg');">
 <?php
 include('header.php');
 
@@ -50,6 +50,36 @@ include('header.php');
 		</form>
 		</div>
 	</div>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
+</div>
+<div>
+<a type="hidden">.</a>
 </div>
 
 <?php include('footer.php'); ?>

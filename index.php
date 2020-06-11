@@ -1,13 +1,15 @@
+<div style="background-image: url('img/neon.jpg');">
 <?php include('header.php');
 session_start();
 $admin = "admin@algo.com";
-
+$secret = "Secret";
 if ($sol = 1) {
   if(isset($_POST['passname']))
   {
   	$emailf = $_POST['emaill'];
   	$pwdf = $_POST['pwdl'];
     $_SESSION['superhero'] = $emailf;
+    $_SESSION['superpass'] = $pwdf;
     $sol++;
   }
 }
@@ -17,7 +19,6 @@ $ref = "goals/";
 $fetchdata = $database->getReference($ref)->getValue();
 $i = 0;
  ?>
-
 
 <div class="container">
   <div class="row">
@@ -45,6 +46,8 @@ $i = 0;
             $ref = "goals/";
             $totalrowno = $database->getReference($ref)->getSnapshot()->numChildren();
             if ($_SESSION['superhero'] == $admin) {
+              if ($_SESSION['superpass'] == $secret) {
+
 
           ?>
           <?php echo $_SESSION['superhero'];?>
@@ -122,6 +125,7 @@ $i = 0;
             </div>
             <?php
             }
+          }
           else{
 
         ?>
@@ -150,13 +154,19 @@ $i = 0;
             </thead>
             <tbody>
               <?php
-
+                $sip = 0;
                 if ($fetchdata > 0) {
 
                 foreach ($fetchdata as $key => $row)
                 {
+                  if ($row['email'] == $_SESSION['superhero'] && $row['pwd'] == $_SESSION['superpass']) {
+                    $sip = $sip + 1;
+                  }
+                }
+                foreach ($fetchdata as $key => $row)
+                {
 
-                  if ($row['email'] == $_SESSION['superhero']) {
+                  if ($row['email'] == $_SESSION['superhero'] && $sip > 0) {
                       $_SESSION['myname'] = $row['username'];
                       $i++;
               ?>
